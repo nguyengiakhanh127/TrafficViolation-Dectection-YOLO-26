@@ -111,14 +111,20 @@ Giám sát số frame phương tiện đứng yên liên tục. Nếu thời gia
 git clone https://github.com/nguyengiakhanh127/TrafficViolation-Dectection-YOLO-26.git
 ```
 
-### 2. Tạo môi trường ảo & cài đặt dependencies
+### 2. Tạo môi trường ảo
 
 ```bash
 python -m venv .venv .venv\Scripts\activate
+```
+
+### 3. Cài đặt dependencies
+
+```bash
 pip install -r requirements.txt
 ```
 
-### 3. Cấu hình biến môi trường
+
+### 4. Cấu hình biến môi trường
 
 Sao chép tệp mẫu và điền thông tin:
 
@@ -154,4 +160,4 @@ python main.py
 |---|---|---|
 | Admin | `admin` | `admin123` |
 
-> ⚠️ **Lưu ý:** Vui lòng đổi mật khẩu mặc định sau khi triển khai.
+
