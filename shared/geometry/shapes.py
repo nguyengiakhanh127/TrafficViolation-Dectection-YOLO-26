@@ -1,0 +1,36 @@
+import cv2
+import numpy as np
+import math
+from typing import List
+from shared.geometry.primitives import Vertex
+from shared.utils.enums import TrafficLineType
+
+class Edge:
+    def __init__(self, p1: Vertex, p2: Vertex, line_type: TrafficLineType):
+        self.p1 = p1
+        self.p2 = p2
+        self.line_type = line_type
+
+        self.weights: np.ndarray = np.empty(2, dtype=np.float32)
+        self.bias: float = 0.0
+        self.norm: float = 0.0
+        
+        self._calculate_line_equation()
+
+    def _calculate_line_equation(self) -> None:
+        a = float(self.p2.y - self.p1.y)
+        b = float(self.p1.x - self.p2.x)
+        c = float(self.p2.x * self.p1.y - self.p1.x * self.p2.y)
+        
+        self.weights = np.array([a, b], dtype=np.float32)
+        self.bias = c
+        self.norm = max(float(math.hypot(a, b)), 1e-6)
+
+class Polygon:
+    def __init__(self, vertices: List[Vertex]):
+        self.vertices = vertices
+        self._cv_contour = np.array([v.as_tuple for v in self.vertices], dtype=np.float32)
+
+    def is_contain_point(self, point: Vertex) -> bool:
+        result = cv2.pointPolygonTest(self._cv_contour, point.as_tuple, False)
+        return result >= 0

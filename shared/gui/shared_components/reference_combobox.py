@@ -1,0 +1,106 @@
+# --- START UPDATE: gui/shared_components/reference_combobox.py ---
+from PyQt6.QtWidgets import QComboBox, QAbstractItemView # [CẬP NHẬT: Import lớp QAbstractItemView]
+from PyQt6.QtCore import pyqtSignal, QEvent, QObject
+
+class HoverEventFilter(QObject):
+    item_hovered = pyqtSignal(int)
+    menu_hidden = pyqtSignal()
+
+    def __init__(self, list_view: QAbstractItemView, parent=None):
+        super().__init__(parent)
+        self.list_view = list_view 
+
+    def eventFilter(self, obj, event):
+        if event.type() == QEvent.Type.MouseMove:
+            # 1. Tính toán tọa độ chuột tương đối so với list_view gốc
+            # Vì event.pos() có thể so với viewport, ta cần map nó về tọa độ view chuẩn
+            pos = event.pos()
+            if obj != self.list_view:
+                # Nếu event phát ra từ viewport, map nó về tọa độ của list_view
+                pos = self.list_view.viewport().mapTo(self.list_view, pos)
+                
+            # 2. Gọi indexAt từ list_view gốc (Chắc chắn 100% có hàm này)
+            index = self.list_view.indexAt(pos)
+            if index.isValid():
+                self.item_hovered.emit(index.row())
+            else:
+                self.item_hovered.emit(-1)
+                
+        elif event.type() == QEvent.Type.Leave:
+            self.item_hovered.emit(-1)
+            
+        elif event.type() == QEvent.Type.Hide:
+            self.menu_hidden.emit()
+            
+        return super().eventFilter(obj, event)
+
+class ReferenceComboBox(QComboBox):
+    reference_hovered = pyqtSignal(str)
+    reference_cleared = pyqtSignal()
+
+    def __init__(self, target_type="POLYGONS", allow_manual=False, parent=None): # Thêm cờ allow_manual mặc định là False
+        super().__init__(parent)
+        self.target_type = target_type
+        self.allow_manual = allow_manual
+        
+        self.setStyleSheet("background-color: #1e1e1e; border: 1px solid #444; padding: 4px;")
+        
+        # Chỉ thêm nút Vẽ thủ công nếu được cho phép
+        if self.allow_manual:
+            self.addItem("✏ Tạo thủ công (Draw New)")
+
+        self.view().setMouseTracking(True)
+        self.view().viewport().setMouseTracking(True)
+
+        self.hover_filter = HoverEventFilter(self.view(), self)
+        self.view().viewport().installEventFilter(self.hover_filter)
+        self.view().installEventFilter(self.hover_filter)
+
+        self.hover_filter.item_hovered.connect(self._on_item_hovered)
+        self.hover_filter.menu_hidden.connect(self.reference_cleared.emit)
+
+    def _on_item_hovered(self, row: int):
+        if row < 0:
+            self.reference_cleared.emit()
+            return
+        text = self.itemText(row)
+        if text not in ["✏ Tạo thủ công (Draw New)", "Trống"]: # Chặn không highlight nếu rê vào chữ Trống
+            self.reference_hovered.emit(text)
+        else:
+            self.reference_cleared.emit()
+
+    def update_registry(self, registry_data: dict):
+        """Cập nhật danh sách thả xuống nhưng TUYỆT ĐỐI GIỮ NGUYÊN lựa chọn cũ"""
+        # Ghi nhớ lại ID đang được chọn
+        current_text = self.currentText() 
+        
+        # Tạm thời khóa sự kiện để lúc clear/addItems không bắn tín hiệu thay đổi lung tung
+        self.blockSignals(True)
+        self.clear()
+        
+        keys_list = registry_data.get(self.target_type, [])
+        
+        if not keys_list and not self.allow_manual:
+            self.addItem("Trống")
+            self.setEnabled(False)
+        else:
+            self.setEnabled(True)
+            if self.allow_manual:
+                self.addItem("✏ Tạo thủ công (Draw New)")
+            
+            # Đổ dữ liệu mới vào
+            self.addItems(keys_list)
+            
+            # [SỬA CHỮA QUAN TRỌNG]: Phục hồi lại cái ID cũ.
+            # Nếu ID cũ không còn tồn tại (bị xóa), trả về "Trống"
+            idx = self.findText(current_text)
+            if idx >= 0:
+                self.setCurrentIndex(idx)
+            else:
+                self.insertItem(0, "Trống")
+                self.setCurrentIndex(0)
+                
+        # Mở khóa sự kiện
+        self.blockSignals(False)
+
+# --- END UPDATE ---

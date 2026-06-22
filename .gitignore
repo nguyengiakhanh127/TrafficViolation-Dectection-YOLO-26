@@ -1,0 +1,4 @@
+.agents/
+.venv/
+.scratch/
+best.pt
