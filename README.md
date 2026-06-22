@@ -18,8 +18,7 @@ Hệ thống AI giám sát trật tự an toàn giao thông đường bộ bằn
   - Ảnh:   ![Screenshot](docs/screenshot.png)
 -->
 
-> 🎬 **Demo Video:**
-> <video src="readme/demo/video/Short%20Demo.mp4" controls width="100%"></video>
+> 🎬 **Demo Video:** [Xem video demo trên YouTube](https://www.youtube.com/watch?v=YOUR_YOUTUBE_VIDEO_ID)
 
 | Giao diện Cấu hình Camera | Giao diện Xem lại Vi phạm |
 |---|---|
