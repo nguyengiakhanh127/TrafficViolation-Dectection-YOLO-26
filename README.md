@@ -55,11 +55,11 @@ Hệ thống AI giám sát trật tự an toàn giao thông đường bộ bằn
 
 #### 🚫 Đi ngược chiều
 
-Nhằm phát hiện vi phạm đi ngược chiều, hệ thống tính `vector` hướng phương tiện dựa trên tọa độ phương tiện hiện tại và trong quá khứ đồng thời tự động tính `vector` làn đường
+Nhằm phát hiện vi phạm đi ngược chiều, hệ thống tính `vector` hướng phương tiện dựa trên tọa độ xe hiện tại và trong quá khứ đồng thời tự động tính `vector` làn đường
 khi cấu hình một làn đường. Từ hai dữ kiện trên, tích vô hướng giữa hai vector nếu < 0 tức rằng ghi nhận vi phạm đi ngược chiều và ngược lại.
 
 #### 📏 Đè vạch phân làn
-Nhằm phát hiện vi phạm đè vạch phân làn, hệ thống kiểm tra giao cắt giữa quỹ đạo di chuyển phương tiện so với vạch phân làn. Trong đó, quỹ đạo di chuyển sẽ được kiểm tra khác nhau cho hai loại xe: hai bánh, bốn bánh.
+Nhằm phát hiện vi phạm đè vạch phân làn, hệ thống kiểm tra giao cắt giữa quỹ đạo di chuyển xe so với vạch phân làn. Trong đó, quỹ đạo di chuyển sẽ được kiểm tra khác nhau cho hai loại xe: hai bánh, bốn bánh.
 
 Trong đó:
 1. Xe hai bánh: sử dụng lịch sử tọa độ tiếp mặt đất `R` trong hai khung hình gần nhất nhằm tính giao cắt giữa quỹ đạo di chuyển xe và vạch phân làn. Nếu giao cắt có xảy ra, ghi nhận vi phạm.
@@ -70,19 +70,19 @@ Trong đó:
 Nếu xảy ra giao cắt, ghi nhận vi phạm.
 #### 🛣️ Đi sai làn
 
-Nhằm phát hiện vi phạm đi sai làn, hệ thống kiểm tra phương tiện có nằm trong một làn đường nào không, nếu có hệ thống đối chiếu loại phương tiện cho phép cho làn đường đó với
+Nhằm phát hiện vi phạm đi sai làn, hệ thống kiểm tra xe có nằm trong một làn đường nào không, nếu có hệ thống đối chiếu loại phương tiện cho phép cho làn đường đó với
 loại phương tiện của xe. Nếu loại phương tiện không hợp lệ, ghi nhận vi phạm.
 
 #### 🔴 Vượt đèn đỏ
-Nhằm phát hiện vượt đèn đỏ, hệ thống sử dụng lần lượt hai đường thẳng là `vạch_dừng` và `vạch_rẽ_phải`. Khi một phương tiện giao thông vượt qua vạch dừng đồng thời đèn tín hiệu đang màu đỏ, trong trường hợp `vạch_rẽ_phải` không được cấu hình thì ghi nhận vi phạm và trường hợp còn lại thì phương tiện này được cập nhật biến trạng thái `pending`. Biến này, giúp đưa ra quyết định ghi nhận hoặc không ghi nhận vi phạm cho các trường hợp đặc biệt.
+Nhằm phát hiện vượt đèn đỏ, hệ thống sử dụng lần lượt hai đường thẳng là `vạch_dừng` và `vạch_rẽ_phải`. Khi một xe vượt qua vạch dừng đồng thời đèn tín hiệu đang màu đỏ, trong trường hợp `vạch_rẽ_phải` không được cấu hình thì ghi nhận vi phạm và trường hợp còn lại thì phương tiện này được cập nhật biến trạng thái `pending`. Biến này, giúp đưa ra quyết định ghi nhận hoặc không ghi nhận vi phạm cho các trường hợp đặc biệt.
 
 Sau khi vượt qua `vạch_dừng` và `vạch_rẽ_phải` tồn tại, các trường hợp rẽ nhánh:
 - Xe tiếp tục đi thẳng, một ngưỡng tham số được cấu hình cứng nhằm so sánh khoảng cách từ vị trí xe đến vị trí vượt qua vạch dừng. Nếu khoảng cách này > ngưỡng quy định, ghi nhận vi phạm còn ngược lại cần quan sát hướng đi tiếp theo của xe.
 - Xe rẽ qua vạch rẽ phải, xét loại phương tiện của xe. Nếu là xe máy thì không ghi nhận vi phạm và ghi nhân vi phạm cho trường hợp còn lại.
 
-#### 🅿️ Đậu xe trái phép (`IllegalParkingRule`)
+#### 🅿️ Đậu xe trái phép
 
-Giám sát số frame phương tiện đứng yên liên tục. Nếu thời gian dừng vượt quá ngưỡng cho phép **và** xe đang nằm trong vùng cấm đỗ đang hoạt động → xác nhận vi phạm.
+Nhằm phát hiện đỗ xe trái phép, hệ thống kiểm tra xe có nằm trong vùng cấm hay không, nếu có thì sau đó kiểm tra thời gian đã đỗ với ngưỡng thời gian. Nếu vượt quá ngưỡng thời gian cho phép, ghi nhận vi phạm.
 
 ## 🛠️ Công nghệ sử dụng
 
