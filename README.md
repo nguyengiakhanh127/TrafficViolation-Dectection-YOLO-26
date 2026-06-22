@@ -1,4 +1,4 @@
-# Hệ thống Phát hiện Vi phạm Thông minh
+# Hệ thống phát hiện vi phạm giao thông thông minh
 
 ![Python](https://img.shields.io/badge/Python-3.10+-3776AB?logo=python&logoColor=white)
 ![PyQt6](https://img.shields.io/badge/PyQt6-Desktop_GUI-41CD52?logo=qt&logoColor=white)
@@ -12,11 +12,6 @@ Hệ thống AI giám sát trật tự an toàn giao thông đường bộ bằn
 ---
 
 ## 📽️ Demo
-<!-- 
-  Thay thế placeholder bên dưới bằng video/ảnh demo thực tế:
-  - Video: ![Demo](docs/demo.gif) hoặc link YouTube
-  - Ảnh:   ![Screenshot](docs/screenshot.png)
--->
 
 > 🎬 **Demo Video:** [Ấn vào đây](https://youtu.be/woJNWR4za3E)
 
@@ -44,10 +39,8 @@ Hệ thống AI giám sát trật tự an toàn giao thông đường bộ bằn
 
 ### Flowchart tổng quan
 
-<!-- 
-  Thay thế placeholder bên dưới bằng ảnh flowchart:
-  ![Flowchart phát hiện vi phạm](flowchart.png)
--->
+![Flowchart phát hiện vi phạm](flowchart.png)
+
 
 > 📊 *Flowchart sẽ được cập nhật tại đây.*
 
