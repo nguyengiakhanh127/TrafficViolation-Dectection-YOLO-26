@@ -55,7 +55,8 @@ Hệ thống AI giám sát trật tự an toàn giao thông đường bộ bằn
 
 #### 🚫 Đi ngược chiều
 
-Hệ thống tính vector hướng di chuyển của xe **đối ngược** với hướng quy định của làn đường → xác nhận vi phạm.
+Nhằm phát hiện vi phạm đi ngược chiều, hệ thống tính `vector` hướng phương tiện dựa trên tọa độ phương tiện hiện tại và trong quá khứ đồng thời tự động tính `vector` làn đường
+khi cấu hình một làn đường. Từ hai dữ kiện trên, tích vô hướng giữa hai vector nếu < 0 tức rằng ghi nhận vi phạm đi ngược chiều và ngược lại.
 
 #### 📏 Đè vạch phân làn
 
