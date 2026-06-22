@@ -70,7 +70,8 @@ Trong đó:
 Nếu xảy ra giao cắt, ghi nhận vi phạm.
 #### 🛣️ Đi sai làn
 
-Kiểm tra xe có đang nằm trong vùng làn đường hay không, và loại phương tiện đó có **được phép lưu thông** trên làn hay không. Ví dụ: xe máy đi vào làn dành riêng cho ô tô.
+Nhằm phát hiện vi phạm đi sai làn, hệ thống kiểm tra phương tiện có nằm trong một làn đường nào không, nếu có hệ thống đối chiếu loại phương tiện cho phép cho làn đường đó với
+loại phương tiện của xe. Nếu loại phương tiện không hợp lệ, ghi nhận vi phạm.
 
 #### 🔴 Vượt đèn đỏ
 Nhằm phát hiện vượt đèn đỏ, hệ thống sử dụng lần lượt hai đường thẳng là `vạch_dừng` và `vạch_rẽ_phải`. Khi một phương tiện giao thông vượt qua vạch dừng đồng thời đèn tín hiệu đang màu đỏ, trong trường hợp `vạch_rẽ_phải` không được cấu hình thì ghi nhận vi phạm và trường hợp còn lại thì phương tiện này được cập nhật biến trạng thái `pending`. Biến này, giúp đưa ra quyết định ghi nhận hoặc không ghi nhận vi phạm cho các trường hợp đặc biệt.
