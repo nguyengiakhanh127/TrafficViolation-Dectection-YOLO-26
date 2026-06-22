@@ -59,12 +59,15 @@ Nhằm phát hiện vi phạm đi ngược chiều, hệ thống tính `vector` 
 khi cấu hình một làn đường. Từ hai dữ kiện trên, tích vô hướng giữa hai vector nếu < 0 tức rằng ghi nhận vi phạm đi ngược chiều và ngược lại.
 
 #### 📏 Đè vạch phân làn
+Nhằm phát hiện vi phạm đè vạch phân làn, hệ thống kiểm tra giao cắt giữa quỹ đạo di chuyển phương tiện so với vạch phân làn. Trong đó, quỹ đạo di chuyển sẽ được kiểm tra khác nhau cho hai loại xe: hai bánh, bốn bánh.
 
-Sử dụng phương pháp **giao cắt hình học đoạn thẳng** giữa quỹ đạo di chuyển của xe với các vạch liền trên mặt đường. Tùy theo loại phương tiện, hệ thống áp dụng chiến lược khác nhau:
+Trong đó:
+1. Xe hai bánh: sử dụng lịch sử tọa độ tiếp mặt đất `R` trong hai khung hình gần nhất nhằm tính giao cắt giữa quỹ đạo di chuyển xe và vạch phân làn. Nếu giao cắt có xảy ra, ghi nhận vi phạm.
+2. Xe bốn bánh: sử dụng lịch sử tọa độ `bánh_xe_trái` và `bánh_xe_phải` nhằm giải quyết các trường hợp đặc thù:
+- Xe di chuyển song song với vạch và vạch nằm giữa thân xe, trường hợp này tính giao cắt giữa đoạn thằng `bánh_xe_trái` -> `bánh_xe_phải` với vạch phân cách.
+- Xe di chuyển vượt qua vạch phân cách, trường hợp này tính giao cắt quỹ đạo di chuyển trên cả hai trường hợp `bánh_xe_trái` và `bánh_xe_phải` với vạch phân làn.
 
-- **Xe 4 bánh** (ô tô, xe tải, xe buýt, container): Kiểm tra **3 điều kiện** — quỹ đạo bánh trái cắt vạch, quỹ đạo bánh phải cắt vạch, hoặc gầm xe đang cưỡi trên vạch.
-- **Xe 2 bánh** (xe máy, xe đạp): Kiểm tra **1 điều kiện** — quỹ đạo điểm tiếp xúc mặt đường cắt vạch.
-
+Nếu xảy ra giao cắt, ghi nhận vi phạm.
 #### 🛣️ Đi sai làn
 
 Kiểm tra xe có đang nằm trong vùng làn đường hay không, và loại phương tiện đó có **được phép lưu thông** trên làn hay không. Ví dụ: xe máy đi vào làn dành riêng cho ô tô.
