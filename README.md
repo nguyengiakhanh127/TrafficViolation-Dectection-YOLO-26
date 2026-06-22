@@ -89,11 +89,11 @@ Nhằm phát hiện đỗ xe trái phép, hệ thống kiểm tra xe có nằm t
 | Thành phần | Công nghệ |
 |---|---|
 | Ngôn ngữ | Python 3.10+ |
-| AI / Deep Learning | YOLOv26 (Ultralytics) format OpenVINO |
+| Nhận diện đối tượng | YOLOv26 (Ultralytics) format OpenVINO |
 | Xử lý ảnh | OpenCV |
-| Nhận dạng biển số | Fast plate OCR |
-| Giao diện Desktop | PyQt6 |
-| Web Dashboard | FastAPI + Vanilla JS (SPA) |
+| Nhận dạng ký tự | Fast plate OCR |
+| Giao diện GUI | PyQt6 |
+| Website | FastAPI + Vanilla JS (SPA) |
 | Cơ sở dữ liệu | MySQL 8.0+ |
 
 ---
@@ -102,7 +102,8 @@ Nhằm phát hiện đỗ xe trái phép, hệ thống kiểm tra xe có nằm t
 
 - **Python** 3.10 trở lên
 - **MySQL Server** 8.0+
-- **GPU** hỗ trợ CUDA *(khuyến nghị)* hoặc CPU với OpenVINO
+- **GPU** hỗ trợ CUDA *(khuyến nghị)*
+- **CPU** hỗ trợ định dạng OpenVINO *(khuyến nghị)* hoặc các mã CPU đời mới
 - **Hệ điều hành:** Windows 10 / 11
 
 ---
