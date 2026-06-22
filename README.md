@@ -2,7 +2,7 @@
 
 ![Python](https://img.shields.io/badge/Python-3.10+-3776AB?logo=python&logoColor=white)
 ![PyQt6](https://img.shields.io/badge/PyQt6-Desktop_GUI-41CD52?logo=qt&logoColor=white)
-![YOLOv8](https://img.shields.io/badge/YOLOv8-Object_Detection-FF6F00)
+![YOLOv26](https://img.shields.io/badge/YOLOv26-Object_Detection-FF6F00)
 ![OpenCV](https://img.shields.io/badge/OpenCV-Computer_Vision-5C3EE8?logo=opencv&logoColor=white)
 ![FastAPI](https://img.shields.io/badge/FastAPI-Web_Dashboard-009688?logo=fastapi&logoColor=white)
 ![MySQL](https://img.shields.io/badge/MySQL-Database-4479A1?logo=mysql&logoColor=white)
@@ -12,14 +12,14 @@ Hệ thống AI giám sát trật tự an toàn giao thông đường bộ bằn
 ---
 
 ## 📽️ Demo
-
 <!-- 
   Thay thế placeholder bên dưới bằng video/ảnh demo thực tế:
   - Video: ![Demo](docs/demo.gif) hoặc link YouTube
   - Ảnh:   ![Screenshot](docs/screenshot.png)
 -->
 
-> 🎬 *Video demo sẽ được cập nhật tại đây.*
+> 🎬 **Demo Video:**
+> <video src="readme/demo/video/Short%20Demo.mp4" controls width="100%"></video>
 
 | Giao diện Cấu hình Camera | Giao diện Xem lại Vi phạm |
 |---|---|
@@ -29,7 +29,7 @@ Hệ thống AI giám sát trật tự an toàn giao thông đường bộ bằn
 
 ## ✨ Tính năng
 
-- 🚗 **Phát hiện & theo dõi phương tiện** thời gian thực (YOLO + Tracking)
+- 🚗 **Phát hiện & theo dõi phương tiện** 
 - 🔴 **Phát hiện vượt đèn đỏ** 
 - 📏 **Phát hiện lấn vạch phân làn**
 - 🚫 **Phát hiện đi ngược chiều** 
@@ -95,7 +95,6 @@ Giám sát số frame phương tiện đứng yên liên tục. Nếu thời gia
 | Giao diện Desktop | PyQt6 |
 | Web Dashboard | FastAPI + Vanilla JS (SPA) |
 | Cơ sở dữ liệu | MySQL 8.0+ |
-| Xuất báo cáo | PDF |
 
 ---
 
@@ -113,15 +112,13 @@ Giám sát số frame phương tiện đứng yên liên tục. Nếu thời gia
 ### 1. Clone repository
 
 ```bash
-git clone https://github.com/<username>/GTTM.git
-cd GTTM
+git clone https://github.com/nguyengiakhanh127/TrafficViolation-Dectection-YOLO-26.git
 ```
 
 ### 2. Tạo môi trường ảo & cài đặt dependencies
 
 ```bash
-python -m venv .venv
-.venv\Scripts\activate
+python -m venv .venv .venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
