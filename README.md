@@ -18,7 +18,7 @@ Hệ thống AI giám sát trật tự an toàn giao thông đường bộ bằn
   - Ảnh:   ![Screenshot](docs/screenshot.png)
 -->
 
-> 🎬 **Demo Video:** [Xem video demo trên YouTube](https://youtu.be/woJNWR4za3E)
+> 🎬 **Demo Video:** [Ấn vào đây](https://youtu.be/woJNWR4za3E)
 
 
 ---
@@ -53,28 +53,27 @@ Hệ thống AI giám sát trật tự an toàn giao thông đường bộ bằn
 
 ### Mô tả ý tưởng từng loại vi phạm
 
-#### 🚫 Đi ngược chiều (`WrongWayRule`)
+#### 🚫 Đi ngược chiều
 
 Hệ thống tính vector hướng di chuyển của xe **đối ngược** với hướng quy định của làn đường → xác nhận vi phạm.
 
-#### 📏 Đè vạch phân làn (`LineCrossingRule`)
+#### 📏 Đè vạch phân làn
 
 Sử dụng phương pháp **giao cắt hình học đoạn thẳng** giữa quỹ đạo di chuyển của xe với các vạch liền trên mặt đường. Tùy theo loại phương tiện, hệ thống áp dụng chiến lược khác nhau:
 
 - **Xe 4 bánh** (ô tô, xe tải, xe buýt, container): Kiểm tra **3 điều kiện** — quỹ đạo bánh trái cắt vạch, quỹ đạo bánh phải cắt vạch, hoặc gầm xe đang cưỡi trên vạch.
 - **Xe 2 bánh** (xe máy, xe đạp): Kiểm tra **1 điều kiện** — quỹ đạo điểm tiếp xúc mặt đường cắt vạch.
 
-#### 🛣️ Đi sai làn (`WrongLaneRule`)
+#### 🛣️ Đi sai làn
 
 Kiểm tra xe có đang nằm trong vùng làn đường hay không, và loại phương tiện đó có **được phép lưu thông** trên làn hay không. Ví dụ: xe máy đi vào làn dành riêng cho ô tô.
 
-#### 🔴 Vượt đèn đỏ (`RedLightRunningRule`)
-
+#### 🔴 Vượt đèn đỏ
+Nhằm phát hiện vượt đèn đỏ, hệ thống sử lần lượt hai đường thẳng là vạch dừng và vạch rẽ phải. Khi một phương tiện giao thông vượt qua vạch dừng đồng thời đèn tín hiệu đang màu đỏ, trong trường hợp vạch rẽ phải không được cấu hình thì ghi nhận vi phạm và trường hợp còn lại thì phương tiện này được cập nhật biến trạng thái `pending`. Biến này, giúp đưa ra quyết định ghi nhận hoặc không ghi nhận vi phạm cho các trường hợp đặc biệt.
+Sau khi vượt qua vạch dừng và vạch rẽ phải tồn tại, các trường hợp rẽ nhánh:
+- Xe tiếp tục đi thẳng, một ngưỡng tham số được cấu hình cứng nhằm so sánh khoảng cách từ vị trí xe đến vị trí vượt qua vạch dừng. Nếu khoảng cách này > ngưỡng quy định, ghi nhận vi phạm còn ngược lại cần quan sát hướng đi tiếp theo của xe.
+- Xe rẽ qua vạch rẽ phải, xét loại phương tiện của xe. Nếu là xe máy thì không ghi nhận vi phạm và ghi nhân vi phạm cho trường hợp còn lại.
 Thuật toán **3 pha** nhằm giảm thiểu bắt nhầm xe rẽ phải hợp lệ:
-
-1. **Pha 1 — Phát hiện vượt vạch:** Kiểm tra quỹ đạo xe có cắt qua vạch dừng khi tín hiệu đèn đang đỏ. Nếu nút giao không có làn rẽ phải → vi phạm ngay. Nếu có làn rẽ phải → chuyển sang Pha 2.
-2. **Pha 2 — Quan sát:** Theo dõi xe sau khi vượt vạch. Nếu xe cắt qua vạch rẽ phải và là xe máy → miễn trừ (rẽ phải hợp lệ).
-3. **Pha 3 — Xác nhận:** Nếu xe đi xa quá ngưỡng khoảng cách từ vị trí vượt vạch mà chưa rẽ phải → xác nhận vi phạm.
 
 #### 🅿️ Đậu xe trái phép (`IllegalParkingRule`)
 
