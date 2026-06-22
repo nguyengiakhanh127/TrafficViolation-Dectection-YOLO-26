@@ -20,9 +20,6 @@ Hệ thống AI giám sát trật tự an toàn giao thông đường bộ bằn
 
 > 🎬 **Demo Video:** [Xem video demo trên YouTube](https://youtu.be/woJNWR4za3E)
 
-| Giao diện Cấu hình Camera | Giao diện Xem lại Vi phạm |
-|---|---|
-| *Ảnh chụp màn hình sẽ được cập nhật* | *Ảnh chụp màn hình sẽ được cập nhật* |
 
 ---
 
